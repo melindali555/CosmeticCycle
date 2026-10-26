@@ -1,3 +1,4 @@
+import base64
 import streamlit as st 
 from openai import OpenAI
 
@@ -154,7 +155,23 @@ if st.button("Continue"):
         Avoid unnecessary repetition. 
         """
 
-
+        if uploaded_image is not None:
+            image_bytes = uploaded_image.getvalue()
+            base64_image = base64.b64encode(image_bytes).decode("utf-8")
+            image_type = uploaded_image.type
+           
+        
+        if input_method == "Upload a photo":
+            user_content = [
+                {"type":"text","text": prompt + "\n\nPlease carefully read the uploaded image and extract the cosmetic ingredients list."},
+                {"type":"image_url","image_url": {"url": f"data:{image_type};base64,{base64_image}"}} 
+                ]
+        
+        else:
+            user_content = [
+                {"type":"text","text": prompt}
+            ]
+        
         response = client.chat.completions.create(
             model="deepseek-flash",
             messages=[
@@ -164,9 +181,10 @@ if st.button("Continue"):
                 },
                 {
                     "role": "user",
-                    "content": prompt
+                    "content": user_content
                 }
             ]
         )
+        
 
         st.write(response.choices[0].message.content)
