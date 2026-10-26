@@ -16,3 +16,6 @@ At the same time, the project raises awareness of the importance of avoiding the
 # Disclaimer
 AI-generated suggestions are exploratory and do not guarantee successful results or the safety of expired cosmetic to reuse. 
 Expired cosmetics showing visible mold, unusual odors, or other abnormal changes should not be reused. Experimental findings apply only to the specific products and condition tested. 
+
+# Demo Website
+https://cosmeticcycle-demo.streamlit.app/
